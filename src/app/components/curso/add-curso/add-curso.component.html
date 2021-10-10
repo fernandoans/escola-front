@@ -1,0 +1,89 @@
+<div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Inclusão de Cursos</div>
+    <div class="panel-body">
+      <div *ngIf="!submitted">
+        <div>
+          <div class="form-group col-md-12">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" required [(ngModel)]="curso.nome" name="nome" />
+          </div>
+          <div class="form-group col-md-12">
+            <label for="descricao">Descrição</label>
+            <input type="text" class="form-control" id="descricao" required [(ngModel)]="curso.descricao"
+              name="descricao" />
+          </div>
+          <div class="form-row">
+            <div class="col col-md-4">
+              <div class="form-group">
+                <label for="cargahoraria">Carga Horária</label>
+                <input class="form-control" id="cargahoraria" required [(ngModel)]="curso.cargahoraria"
+                  name="cargahoraria" />
+              </div>
+            </div>
+            <div class="col col-md-4">
+              <div class="form-group">
+                <label for="qtdalunos">Qtd Alunos</label>
+                <input class="form-control" id="qtdalunos" required [(ngModel)]="curso.qtdalunos" name="qtdalunos" />
+              </div>
+            </div>
+            <div class="col col-md-4">
+              <div class="form-group">
+                <label for="numsala">Nº Sala</label>
+                <input class="form-control" id="numsala" required [(ngModel)]="curso.numsala" name="numsala" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-12">
+            <label class="control-label" for="datainicio">Data Início</label>
+            <div class='input-group date' id='datainiciocurso'>
+              <input type='text' class="form-control" id="datainicio" required [(ngModel)]="curso.datainicio"
+                name="datainicio" />
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col col-md-3">
+              <div class="form-group">
+                <label class="control-label" for="matriculaProfessor">Matrícula do Professor</label>
+                <input type="text" class="form-control" id="matriculaProfessor"
+                  [(ngModel)]="curso?.professor?.matricula!">
+              </div>
+            </div>
+            <div class="col col-md-9">
+              <div class="form-group">
+                <label class="control-label" for="nomeProfessor">Nome do Professor</label>
+                <div class='input-group date' id='pesquisarpornome'>
+                  <input type="text" class="form-control" placeholder="Pesquisar pelo nome do Professor"
+                    id="nomeProfessor" [formControl]="professorNome" value="{{nomeProf}}">
+                  <span class="input-group-addon" (click)="importProfessores()">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                  </span>
+                </div>
+                <table class="table" *ngIf="lstProfessor.length > 0">
+                  <tr>
+                    <th>Nome</th>
+                    <th>Disciplina</th>
+                  </tr>
+                  <tr *ngFor="let professor of lstProfessor" (click)="importSelProfessor(professor)"
+                    class="import-movie">
+                    <td class="my-text-center">{{professor.nome}}</td>
+                    <td class="my-text-center">{{professor.disciplina}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <button (click)="saveCurso()" class="btn btn-success">Inserir</button>
+        </div>
+      </div>
+
+      <div *ngIf="submitted">
+        <h4>Curso foi submetido com sucesso!</h4>
+        <button class="btn btn-success" (click)="newCurso()">Adicionar</button>
+      </div>
+    </div>
+  </div>
+</div>

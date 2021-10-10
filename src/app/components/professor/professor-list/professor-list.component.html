@@ -1,0 +1,72 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">Gerenciamento de Professores</div>
+  <div class="panel-body">
+    <div class="list row">
+      <div class="col-md-8">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Pesquisar por nome"
+            [(ngModel)]="nome"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="searchNome()"
+            >
+              Pesquisar
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h4>Listagem de Professores</h4>
+        <ul class="list-group">
+          <li
+            class="list-group-item"
+            *ngFor="let professor of professores; let i = index"
+            [class.active]="i == currentIndex"
+            (click)="setActiveProfessor(professor, i)"
+          >
+            {{ professor.nome }}
+          </li>
+        </ul>
+
+        <button class="m-3 btn btn-sm btn-danger" (click)="removeAllProfessores()">
+          Remover Todos
+        </button>
+        <button class="m-3 btn btn-sm btn-success" routerLink="/addprofessor">
+          Adicionar
+        </button>
+      </div>
+      <div class="col-md-6">
+        <div *ngIf="currentProfessor">
+          <h4>Professor</h4>
+          <div>
+            <label><strong>Nome:</strong></label> 
+            {{ currentProfessor.nome }}
+          </div>
+          <div>
+            <label><strong>Disciplina:</strong></label>
+            {{ currentProfessor.disciplina }}
+          </div>
+          <div>
+            <label><strong>Contato:</strong></label>
+            {{ currentProfessor.contato }}
+          </div>
+
+          <a class="m-3 btn btn-sm btn-warning" routerLink="/professor/{{ currentProfessor.matricula }}">
+            Modificar
+          </a>
+        </div>
+
+        <div *ngIf="professores">
+          <br />
+          <p>Selecionar o professor...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

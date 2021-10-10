@@ -1,0 +1,67 @@
+<div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Modificação de Alunos</div>
+    <div class="panel-body">
+      <div *ngIf="currentAluno.matricula">
+        <div class="form-group col-md-12">
+          <label><strong>Matricula:</strong></label>
+          {{ currentAluno.matricula }}
+        </div>
+        <div class="form-group col-md-12">
+          <label for="nome">Nome</label>
+          <input type="text" class="form-control" id="nome" [(ngModel)]="currentAluno.nome" name="nome" />
+        </div>
+        <div class="form-row">
+          <div class="col col-md-4">
+            <div class="form-group">
+              <label class="control-label" for="datanascimento">Data de Nascimento</label>
+              <div class='input-group date' id='datanascimentoprof'>
+                <input type='text' class="form-control" id="datanascimento" required
+                  [(ngModel)]="currentAluno.datanascimento" name="datanascimento" />
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col col-md-4">
+            <div class="form-group">
+              <label>Sexo</label><br />
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="masculino" [(ngModel)]="currentAluno.sexo" value='M'
+                  name="sexo" />
+                <label class="form-check-label" for="masculino">Masculino</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="feminino" value='F' [(ngModel)]="currentAluno.sexo"
+                  name="sexo" />
+                <label class="form-check-label" for="feminino">Feminino</label>
+              </div>
+            </div>
+          </div>
+          <div class="col col-md-4">
+            <div class="form-group">
+              <label for="contato">Contato</label>
+              <input type="text" class="form-control" id="contato" [(ngModel)]="currentAluno.contato" name="contato" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="email">E-Mail</label>
+          <input type="text" class="form-control" id="email" [(ngModel)]="currentAluno.email" name="email" />
+        </div>
+
+        <button class="m-3 btn btn-sm btn-danger" (click)="deleteAluno()">
+          Excluir
+        </button>
+        <button type="submit" class="m-3 btn btn-sm btn-warning" (click)="updateAluno()">
+          Alterar
+        </button>
+        <p>{{ message }}</p>
+      </div>
+      <div *ngIf="!currentAluno.matricula">
+        <p>Aluno não localizado...</p>
+      </div>
+    </div>
+  </div>
+</div>

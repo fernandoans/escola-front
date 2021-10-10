@@ -1,0 +1,54 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">Gerenciamento de Cursos</div>
+  <div class="panel-body">
+    <div class="list row">
+      <div class="col-md-12">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Pesquisar por nome" [(ngModel)]="nome" />
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" (click)="searchNome()">
+              Pesquisar
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h4>Listagem de Cursos</h4>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let curso of cursos; let i = index" [class.active]="i == currentIndex"
+            (click)="setActiveCurso(curso, i)">
+            {{ curso.nome }}
+          </li>
+        </ul>
+
+        <button class="m-3 btn btn-sm btn-danger" (click)="removeAllCursos()">
+          Remover Todos
+        </button>
+        <button class="m-3 btn btn-sm btn-success" routerLink="/addcurso">
+          Adicionar
+        </button>
+      </div>
+      <div class="col-md-6">
+        <div *ngIf="currentCurso">
+          <h4>Curso</h4>
+          <div>
+            <label><strong>Nome:</strong></label> {{ currentCurso.nome }}
+          </div>
+          <div>
+            <label><strong>Descrição:</strong></label>
+            {{ currentCurso.descricao }}
+          </div>
+
+          <a class="m-3 btn btn-sm btn-warning" routerLink="/curso/{{ currentCurso.id }}">
+            Modificar
+          </a>
+        </div>
+
+        <div *ngIf="cursos">
+          <br />
+          <p>Selecionar o Curso...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

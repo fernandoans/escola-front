@@ -1,0 +1,73 @@
+<div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Modificação de Professores</div>
+    <div class="panel-body">
+      <div *ngIf="currentProfessor.matricula">
+        <div class="form-group col-md-12">
+          <label><strong>Matricula:</strong></label>
+          {{ currentProfessor.matricula }}
+        </div>
+        <div class="form-group col-md-12">
+          <label for="nome">Nome</label>
+          <input type="text" class="form-control" id="nome" [(ngModel)]="currentProfessor.nome" name="nome" />
+        </div>
+        <div class="form-row">
+          <div class="col col-md-4">
+            <div class="form-group">
+              <label class="control-label" for="datanascimento">Data de Nascimento</label>
+              <div class='input-group date' id='datanascimentoprof'>
+                <input type='text' class="form-control" id="datanascimento" required
+                  [(ngModel)]="currentProfessor.datanascimento" name="datanascimento" />
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col col-md-4">
+            <div class="form-group">
+              <label>Sexo</label><br />
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="masculino" [(ngModel)]="currentProfessor.sexo"
+                  value='M' name="sexo" />
+                <label class="form-check-label" for="masculino">Masculino</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="feminino" value='F' [(ngModel)]="currentProfessor.sexo"
+                  name="sexo" />
+                <label class="form-check-label" for="feminino">Feminino</label>
+              </div>
+            </div>
+          </div>
+          <div class="col col-md-4">
+            <div class="form-group">
+              <label for="contato">Contato</label>
+              <input type="text" class="form-control" id="contato" [(ngModel)]="currentProfessor.contato"
+                name="contato" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="email">E-Mail</label>
+          <input type="text" class="form-control" id="email" [(ngModel)]="currentProfessor.email" name="email" />
+        </div>
+        <div class="form-group col-md-12">
+          <label for="disciplina">Disciplina</label>
+          <input type="text" class="form-control" id="disciplina" [(ngModel)]="currentProfessor.disciplina"
+            name="disciplina" />
+        </div>
+
+        <button class="m-3 btn btn-sm btn-danger" (click)="deleteProfessor()">
+          Excluir
+        </button>
+        <button type="submit" class="m-3 btn btn-sm btn-warning" (click)="updateProfessor()">
+          Alterar
+        </button>
+        <p>{{ message }}</p>
+      </div>
+      <div *ngIf="!currentProfessor.matricula">
+        <p>Professor não localizado...</p>
+      </div>
+    </div>
+  </div>
+</div>

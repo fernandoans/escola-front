@@ -1,0 +1,66 @@
+<div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Inclusão de Professores</div>
+    <div class="panel-body">
+      <div *ngIf="!submitted">
+        <div class="form-group col-md-12">
+          <label for="matricula">Matrícula</label>
+          <input type="text" class="form-control" id="matricula" required [(ngModel)]="professor.matricula"
+            name="matricula" />
+        </div>
+        <div class="form-group col-md-12">
+          <label for="nome">Nome</label>
+          <input type="text" class="form-control" id="nome" required [(ngModel)]="professor.nome" name="nome" />
+        </div>
+        <div class="form-row">
+          <div class="col col-md-4">
+            <div class="form-group">
+              <label class="control-label" for="datanascimento">Data de Nascimento</label>
+              <div class='input-group date' id='datanascimentoprof'>
+                <input type='text' class="form-control" id="datanascimento" required
+                  [(ngModel)]="professor.datanascimento" name="datanascimento" />
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col col-md-4">
+            <div class="form-group">
+              <label>Sexo</label><br />
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="masculino" [(ngModel)]="professor.sexo" value='M'
+                  name="sexo" />
+                <label class="form-check-label" for="masculino">Masculino</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="feminino" value='F' [(ngModel)]="professor.sexo"
+                  name="sexo" />
+                <label class="form-check-label" for="feminino">Feminino</label>
+              </div>
+            </div>
+          </div>
+          <div class="col col-md-4">
+            <div class="form-group">
+              <label for="contato">Contato</label>
+              <input class="form-control" id="contato" required [(ngModel)]="professor.contato" name="contato" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="email">E-mail</label>
+          <input class="form-control" id="email" required [(ngModel)]="professor.email" name="email" />
+        </div>
+        <div class="form-group col-md-12">
+          <label for="disciplina">Disciplina</label>
+          <input class="form-control" id="disciplina" required [(ngModel)]="professor.disciplina" name="disciplina" />
+        </div>
+        <button (click)="saveProfessor()" class="btn btn-success">Inserir</button>
+      </div>
+      <div *ngIf="submitted">
+        <h4>Professor foi enviado com sucesso!</h4>
+        <button class="btn btn-success" (click)="newProfessor()">Adicionar</button>
+      </div>
+    </div>
+  </div>
+</div>

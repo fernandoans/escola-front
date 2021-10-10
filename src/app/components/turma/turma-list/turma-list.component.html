@@ -1,0 +1,71 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">Gerenciamento de Turmas</div>
+  <div class="panel-body">
+    <div class="list row">
+      <div class="col-md-8">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Pesquisar por nome"
+            [(ngModel)]="title"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="searchTitle()"
+            >
+              Pesquisar
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h4>Listagem de Turmas</h4>
+        <ul class="list-group">
+          <li
+            class="list-group-item"
+            *ngFor="let turma of turmas; let i = index"
+            [class.active]="i == currentIndex"
+            (click)="setActiveTurma(turma, i)"
+          >
+            {{ turma.title }}
+          </li>
+        </ul>
+
+        <button class="m-3 btn btn-sm btn-danger" (click)="removeAllTurmas()">
+          Remover Todos
+        </button>
+        <button class="m-3 btn btn-sm btn-success" routerLink="/addturma">
+          Adicionar
+        </button>
+      </div>
+      <div class="col-md-6">
+        <div *ngIf="currentTurma">
+          <h4>Turma</h4>
+          <div>
+            <label><strong>Title:</strong></label> {{ currentTurma.title }}
+          </div>
+          <div>
+            <label><strong>Description:</strong></label>
+            {{ currentTurma.description }}
+          </div>
+          <div>
+            <label><strong>Status:</strong></label>
+            {{ currentTurma.published ? "Published" : "Pending" }}
+          </div>
+
+          <a class="badge badge-warning" routerLink="/turma/{{ currentTurma.id }}">
+            Modificar
+          </a>
+        </div>
+
+        <div *ngIf="turmas">
+          <br />
+          <p>Selecionar a Turma...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
