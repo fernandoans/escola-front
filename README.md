@@ -8,9 +8,9 @@ http://localhost:8080/laboratorio/swagger-ui/index.html
 
 Compilar o front:
 
-'''
+```
 $ npm build
 $ npm start
-'''
+```
 
 Acessar a http://localhost:4200
