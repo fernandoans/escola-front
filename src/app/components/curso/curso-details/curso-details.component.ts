@@ -13,12 +13,6 @@ import { Professor } from 'src/app/models/professor.model';
 })
 export class CursoDetailsComponent implements OnInit {
 
-  professorNome = new FormControl();
-  professorLoading = false;
-  nomeProf?= '';
-  lstProfessor: Professor[] = [];
-  lstProfessorVazio: Professor[] = [];
-
   currentCurso: Curso = {
     id: 0,
     nome: '',
@@ -57,15 +51,6 @@ export class CursoDetailsComponent implements OnInit {
         });
   }
 
-  importProfessores() {
-    this.professorLoading = true;
-    const nome = this.professorNome.value.replace(/ /g, '+');
-    this.professorService.findByNome(nome).subscribe(m => {
-      this.lstProfessor = m;
-      this.professorLoading = false;
-    });
-  }
-
   updateCurso(): void {
     this.message = '';
 
@@ -90,6 +75,23 @@ export class CursoDetailsComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  /* Tabelas Extenas */
+
+  professorNome = new FormControl();
+  professorLoading = false;
+  nomeProf?= '';
+  lstProfessor: Professor[] = [];
+  lstProfessorVazio: Professor[] = [];
+
+  importProfessores() {
+    this.professorLoading = true;
+    const nome = this.professorNome.value.replace(/ /g, '+');
+    this.professorService.findByNome(nome).subscribe(m => {
+      this.lstProfessor = m;
+      this.professorLoading = false;
+    });
   }
 
   importSelProfessor(professor: Professor) {

@@ -1,39 +1,122 @@
-<div class="panel panel-primary">
-  <div class="panel-heading">Inclusão de Turmas</div>
-  <div class="panel-body">
-    <div>
-      <div class="submit-form">
-        <div *ngIf="!submitted">
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input
-              type="text"
-              class="form-control"
-              id="title"
-              required
-              [(ngModel)]="turma.title"
-              name="title"
-            />
+<div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Inclusão de Turmas</div>
+    <div class="panel-body">
+      <div *ngIf="!submitted">
+        <div>
+          <div class="form-group col-md-12">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" required [(ngModel)]="turma.nome" name="nome" />
           </div>
-
-          <div class="form-group">
-            <label for="description">Description</label>
-            <input
-              class="form-control"
-              id="description"
-              required
-              [(ngModel)]="turma.description"
-              name="description"
-            />
+          <div class="form-row">
+            <div class="col col-md-6">
+              <div class="form-group">
+                <label for="cargahoraria">Carga Horária</label>
+                <input class="form-control" id="cargahoraria" required [(ngModel)]="turma.cargahoraria"
+                  name="cargahoraria" />
+              </div>
+            </div>
+            <div class="col col-md-6">
+              <div class="form-group">
+                <label for="cargahoraria">Nº Sala</label>
+                <input class="form-control" id="numsala" required [(ngModel)]="turma.numsala" name="numsala" />
+              </div>
+            </div>
           </div>
-
-          <button (click)="saveTurma()" class="btn btn-success">Submit</button>
+          <div class="form-row">
+            <div class="col col-md-6">
+              <div class="form-group">
+                <label class="control-label" for="datainicio">Data Início</label>
+                <div class='input-group date' id='datainicioturma'>
+                  <input type='text' class="form-control" id="datainicio" required [(ngModel)]="turma.datainicio"
+                    name="datainicio" />
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col col-md-6">
+              <div class="form-group">
+                <label class="control-label" for="datatermino">Data Término</label>
+                <div class='input-group date' id='dataterminoturma'>
+                  <input type='text' class="form-control" id="datatermino" required [(ngModel)]="turma.datatermino"
+                    name="datatermino" />
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col col-md-3">
+              <div class="form-group">
+                <label class="control-label" for="matriculaProfessor">Matrícula do Professor</label>
+                <input type="text" class="form-control" id="matriculaProfessor"
+                  [(ngModel)]="turma?.professor?.matricula!">
+              </div>
+            </div>
+            <div class="col col-md-9">
+              <div class="form-group">
+                <label class="control-label" for="nomeProfessor">Nome do Professor</label>
+                <div class='input-group date' id='pesquisarpornome'>
+                  <input type="text" class="form-control" placeholder="Pesquisar pelo nome do Professor"
+                    id="nomeProfessor" [formControl]="professorNome" value="{{nomeProf}}">
+                  <span class="input-group-addon" (click)="importProfessores()">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                  </span>
+                </div>
+                <table class="table" *ngIf="lstProfessor.length > 0">
+                  <tr>
+                    <th>Nome</th>
+                    <th>Disciplina</th>
+                  </tr>
+                  <tr *ngFor="let professor of lstProfessor" (click)="importSelProfessor(professor)"
+                    class="import-movie">
+                    <td class="my-text-center">{{professor.nome}}</td>
+                    <td class="my-text-center">{{professor.disciplina}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col col-md-3">
+              <div class="form-group">
+                <label class="control-label" for="idCurso">ID do Curso</label>
+                <input type="text" class="form-control" id="idCurso" [(ngModel)]="turma?.curso?.id!">
+              </div>
+            </div>
+            <div class="col col-md-9">
+              <div class="form-group">
+                <label class="control-label" for="nomeCurso">Nome do Curso</label>
+                <div class='input-group date' id='pesquisarpornome'>
+                  <input type="text" class="form-control" placeholder="Pesquisar pelo nome do Curso" id="nomeCurso"
+                    [formControl]="cursoNome" value="{{nomeCurso}}">
+                  <span class="input-group-addon" (click)="importCursos()">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                  </span>
+                </div>
+                <table class="table" *ngIf="lstCurso.length > 0">
+                  <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                  </tr>
+                  <tr *ngFor="let curso of lstCurso" (click)="importSelCurso(curso)" class="import-item">
+                    <td class="my-text-center">{{curso.nome}}</td>
+                    <td class="my-text-center">{{curso.descricao}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <button (click)="saveTurma()" class="btn btn-success">Inserir</button>
         </div>
-
-        <div *ngIf="submitted">
-          <h4>Turma was submitted successfully!</h4>
-          <button class="btn btn-success" (click)="newTurma()">Add</button>
-        </div>
+      </div>
+      <div *ngIf="submitted">
+        <h4>Turma foi submetido com sucesso!</h4>
+        <button class="btn btn-success" (click)="newTurma()">Adicionar</button>
       </div>
     </div>
   </div>

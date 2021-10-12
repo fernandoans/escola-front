@@ -30,7 +30,7 @@ ul.li:hover {
 	text-overflow: ellipsis;
 	width: 100%;
 }
-.import-movie {
+.import-item {
 	cursor: pointer;
 	background: #ecf0b9;
 }

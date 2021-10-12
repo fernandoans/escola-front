@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Turma } from '../models/turma.model';
 
-const baseUrl = 'http://localhost:8080/api/turma';
+const baseUrl = 'http://localhost:8080/laboratorio/turma/';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class TurmaService {
   }
 
   get(id: any): Observable<Turma> {
-    return this.http.get(`${baseUrl}/${id}`);
+    return this.http.get(`${baseUrl}${id}`);
   }
 
   create(data: any): Observable<any> {
@@ -25,18 +25,18 @@ export class TurmaService {
   }
 
   update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
+    return this.http.put(`${baseUrl}${id}`, data);
   }
 
   delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`);
+    return this.http.delete(`${baseUrl}${id}`);
   }
 
   deleteAll(): Observable<any> {
     return this.http.delete(baseUrl);
   }
 
-  findByTitle(title: any): Observable<Turma[]> {
-    return this.http.get<Turma[]>(`${baseUrl}?title=${title}`);
+  findByNome(title: any): Observable<Turma[]> {
+    return this.http.get<Turma[]>(`${baseUrl}nome/${title}`);
   }
 }

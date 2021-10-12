@@ -11,7 +11,7 @@ export class TurmaListComponent implements OnInit {
   turmas?: Turma[];
   currentTurma?: Turma;
   currentIndex = -1;
-  title = '';
+  nome = '';
 
   constructor(private turmaService: TurmaService) { }
 
@@ -54,11 +54,11 @@ export class TurmaListComponent implements OnInit {
         });
   }
 
-  searchTitle(): void {
+  searchNome(): void {
     this.currentTurma = undefined;
     this.currentIndex = -1;
 
-    this.turmaService.findByTitle(this.title)
+    this.turmaService.findByNome(this.nome)
       .subscribe(
         data => {
           this.turmas = data;

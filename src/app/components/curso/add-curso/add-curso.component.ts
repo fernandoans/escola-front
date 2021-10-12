@@ -12,12 +12,6 @@ import { ProfessorService } from 'src/app/services/professor.service';
 })
 export class AddCursoComponent implements OnInit {
 
-  professorNome = new FormControl();
-  professorLoading = false;
-  nomeProf?= '';
-  lstProfessor: Professor[] = [];
-  lstProfessorVazio: Professor[] = [];
-
   curso: Curso = {
     nome: '',
     descricao: '',
@@ -32,18 +26,12 @@ export class AddCursoComponent implements OnInit {
   };
   submitted = false;
 
-  constructor(private cursoService: CursoService, private professorService: ProfessorService) { }
-
-  ngOnInit(): void {
+  constructor(
+    private cursoService: CursoService,
+    private professorService: ProfessorService) {
   }
 
-  importProfessores() {
-    this.professorLoading = true;
-    const nome = this.professorNome.value.replace(/ /g, '+');
-    this.professorService.findByNome(nome).subscribe(m => {
-      this.lstProfessor = m;
-      this.professorLoading = false;
-    });
+  ngOnInit(): void {
   }
 
   saveCurso(): void {
@@ -84,6 +72,23 @@ export class AddCursoComponent implements OnInit {
         nome: ''
       }
     };
+  }
+
+  /* Tabelas Extenas */
+
+  professorNome = new FormControl();
+  professorLoading = false;
+  nomeProf?= '';
+  lstProfessor: Professor[] = [];
+  lstProfessorVazio: Professor[] = [];
+
+  importProfessores() {
+    this.professorLoading = true;
+    const nome = this.professorNome.value.replace(/ /g, '+');
+    this.professorService.findByNome(nome).subscribe(m => {
+      this.lstProfessor = m;
+      this.professorLoading = false;
+    });
   }
 
   importSelProfessor(professor: Professor) {

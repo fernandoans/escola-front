@@ -1,65 +1,127 @@
 <div>
-  <div *ngIf="currentTurma.id" class="edit-form">
-    <h4>Turma</h4>
-    <form>
-      <div class="form-group">
-        <label for="title">Title</label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          [(ngModel)]="currentTurma.title"
-          name="title"
-        />
+  <div class="panel panel-primary">
+    <div class="panel-heading">Modificação de Turmas</div>
+    <div class="panel-body">
+      <div *ngIf="currentTurma.id">
+        <div>
+          <div class="form-group col-md-12">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" required [(ngModel)]="currentTurma.nome" name="nome" />
+          </div>
+          <div class="form-row">
+            <div class="col col-md-6">
+              <div class="form-group">
+                <label for="cargahoraria">Carga Horária</label>
+                <input class="form-control" id="cargahoraria" required [(ngModel)]="currentTurma.cargahoraria"
+                  name="cargahoraria" />
+              </div>
+            </div>
+            <div class="col col-md-6">
+              <div class="form-group">
+                <label for="cargahoraria">Nº Sala</label>
+                <input class="form-control" id="numsala" required [(ngModel)]="currentTurma.numsala" name="numsala" />
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col col-md-6">
+              <div class="form-group">
+                <label class="control-label" for="datainicio">Data Início</label>
+                <div class='input-group date' id='datainicioturma'>
+                  <input type='text' class="form-control" id="datainicio" required [(ngModel)]="currentTurma.datainicio"
+                    name="datainicio" />
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col col-md-4">
+              <div class="form-group">
+                <label class="control-label" for="datatermino">Data Término</label>
+                <div class='input-group date' id='dataterminoturma'>
+                  <input type='text' class="form-control" id="datatermino" required
+                    [(ngModel)]="currentTurma.datatermino" name="datatermino" />
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col col-md-3">
+              <div class="form-group">
+                <label class="control-label" for="matriculaProfessor">Matrícula do Professor</label>
+                <input type="text" class="form-control" id="matriculaProfessor"
+                  [(ngModel)]="currentTurma?.professor?.matricula!">
+              </div>
+            </div>
+            <div class="col col-md-9">
+              <div class="form-group">
+                <label class="control-label" for="nomeProfessor">Nome do Professor</label>
+                <div class='input-group date' id='pesquisarpornome'>
+                  <input type="text" class="form-control" placeholder="Pesquisar pelo nome do Professor"
+                    id="nomeProfessor" [formControl]="professorNome" value="{{nomeProf}}">
+                  <span class="input-group-addon" (click)="importProfessores()">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                  </span>
+                </div>
+                <table class="table" *ngIf="lstProfessor.length > 0">
+                  <tr>
+                    <th>Nome</th>
+                    <th>Disciplina</th>
+                  </tr>
+                  <tr *ngFor="let professor of lstProfessor" (click)="importSelProfessor(professor)"
+                    class="import-item">
+                    <td class="my-text-center">{{professor.nome}}</td>
+                    <td class="my-text-center">{{professor.disciplina}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col col-md-3">
+              <div class="form-group">
+                <label class="control-label" for="idCurso">ID do Curso</label>
+                <input type="text" class="form-control" id="idCurso" [(ngModel)]="currentTurma?.curso?.id!">
+              </div>
+            </div>
+            <div class="col col-md-9">
+              <div class="form-group">
+                <label class="control-label" for="nomeCurso">Nome do Curso</label>
+                <div class='input-group date' id='pesquisarpornome'>
+                  <input type="text" class="form-control" placeholder="Pesquisar pelo nome do Curso" id="nomeCurso"
+                    [formControl]="cursoNome" value="{{nomeCurso}}">
+                  <span class="input-group-addon" (click)="importCursos()">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                  </span>
+                </div>
+                <table class="table" *ngIf="lstCurso.length > 0">
+                  <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                  </tr>
+                  <tr *ngFor="let curso of lstCurso" (click)="importSelCurso(curso)" class="import-item">
+                    <td class="my-text-center">{{curso.nome}}</td>
+                    <td class="my-text-center">{{curso.descricao}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="m-3 btn btn-sm btn-danger" (click)="deleteTurma()">
+          Excluir
+        </button>
+        <button type="submit" class="m-3 btn btn-sm btn-warning" (click)="updateTurma()">
+          Alterar
+        </button>
+        <p>{{ message }}</p>
       </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <input
-          type="text"
-          class="form-control"
-          id="description"
-          [(ngModel)]="currentTurma.description"
-          name="description"
-        />
+      <div *ngIf="!currentTurma.id">
+        <p>Turma não localizada...</p>
       </div>
-
-      <div class="form-group">
-        <label><strong>Status:</strong></label>
-        {{ currentTurma.published ? "Published" : "Pending" }}
-      </div>
-    </form>
-
-    <button
-      class="badge badge-primary mr-2"
-      *ngIf="currentTurma.published"
-      (click)="updatePublished(false)"
-    >
-      UnPublish
-    </button>
-    <button
-      *ngIf="!currentTurma.published"
-      class="badge badge-primary mr-2"
-      (click)="updatePublished(true)"
-    >
-      Publish
-    </button>
-
-    <button class="badge badge-danger mr-2" (click)="deleteTurma()">
-      Delete
-    </button>
-
-    <button
-      type="submit"
-      class="badge badge-success mb-2"
-      (click)="updateTurma()"
-    >
-      Update
-    </button>
-    <p>{{ message }}</p>
+    </div>
   </div>
-
-  <div *ngIf="!currentTurma.id">
-    <br />
-    <p>Cannot access this Turma...</p>
-  </div>
-</div>

@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { TurmaService } from 'src/app/services/turma.service';
+import { FormControl } from '@angular/forms';
+import { Curso } from 'src/app/models/curso.model';
+import { Professor } from 'src/app/models/professor.model';
+import { CursoService } from 'src/app/services/curso.service';
+import { ProfessorService } from 'src/app/services/professor.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Turma } from 'src/app/models/turma.model';
+import { TurmaService } from 'src/app/services/turma.service';
 
 @Component({
   selector: 'app-turma-details',
@@ -9,15 +14,29 @@ import { Turma } from 'src/app/models/turma.model';
   styleUrls: ['./turma-details.component.css']
 })
 export class TurmaDetailsComponent implements OnInit {
+
   currentTurma: Turma = {
-    title: '',
-    description: '',
-    published: false
+    id: 0,
+    nome: '',
+    cargahoraria: 0,
+    numsala: 0,
+    datainicio: '',
+    datatermino: '',
+    professor: {
+      matricula: 0,
+      nome: ''
+    },
+    curso: {
+      id: 0,
+      nome: ''
+    }
   };
   message = '';
 
   constructor(
     private turmaService: TurmaService,
+    private professorService: ProfessorService,
+    private cursoService: CursoService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -38,27 +57,6 @@ export class TurmaDetailsComponent implements OnInit {
         });
   }
 
-  updatePublished(status: boolean): void {
-    const data = {
-      title: this.currentTurma.title,
-      description: this.currentTurma.description,
-      published: status
-    };
-
-    this.message = '';
-
-    this.turmaService.update(this.currentTurma.id, data)
-      .subscribe(
-        response => {
-          this.currentTurma.published = status;
-          console.log(response);
-          this.message = response.message ? response.message : 'This turma was updated successfully!';
-        },
-        error => {
-          console.log(error);
-        });
-  }
-
   updateTurma(): void {
     this.message = '';
 
@@ -66,7 +64,7 @@ export class TurmaDetailsComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          this.message = response.message ? response.message : 'This turma was updated successfully!';
+          this.message = response.message ? response.message : 'Turma modificada corretamente!';
         },
         error => {
           console.log(error);
@@ -84,4 +82,49 @@ export class TurmaDetailsComponent implements OnInit {
           console.log(error);
         });
   }
+
+  /* Tabelas Extenas */
+
+  professorNome = new FormControl();
+  professorLoading = false;
+  nomeProf?= '';
+  lstProfessor: Professor[] = [];
+  lstProfessorVazio: Professor[] = [];
+
+  cursoNome = new FormControl();
+  cursoLoading = false;
+  nomeCurso?= '';
+  lstCurso: Curso[] = [];
+  lstCursoVazio: Curso[] = [];
+
+  importProfessores() {
+    this.professorLoading = true;
+    const nome = this.professorNome.value.replace(/ /g, '+');
+    this.professorService.findByNome(nome).subscribe(m => {
+      this.lstProfessor = m;
+      this.professorLoading = false;
+    });
+  }
+
+  importSelProfessor(professor: Professor) {
+    this.currentTurma.professor = professor;
+    this.nomeProf = professor.nome;
+    this.lstProfessor = this.lstProfessorVazio;
+  }
+
+  importCursos() {
+    this.cursoLoading = true;
+    const nome = this.cursoNome.value.replace(/ /g, '+');
+    this.cursoService.findByNome(nome).subscribe(m => {
+      this.lstCurso = m;
+      this.cursoLoading = false;
+    });
+  }
+
+  importSelCurso(curso: Curso) {
+    this.currentTurma.curso = curso;
+    this.nomeCurso = curso.nome;
+    this.lstCurso = this.lstCursoVazio;
+  }
+
 }
