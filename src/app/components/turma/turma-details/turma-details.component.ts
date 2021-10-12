@@ -7,6 +7,7 @@ import { ProfessorService } from 'src/app/services/professor.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Turma } from 'src/app/models/turma.model';
 import { TurmaService } from 'src/app/services/turma.service';
+import { TurmaAlunoService } from 'src/app/services/turmaaluno.service';
 
 @Component({
   selector: 'app-turma-details',
@@ -29,12 +30,14 @@ export class TurmaDetailsComponent implements OnInit {
     curso: {
       id: 0,
       nome: ''
-    }
+    },
+    alunos: []
   };
   message = '';
 
   constructor(
     private turmaService: TurmaService,
+    private turmaAlunoService: TurmaAlunoService,
     private professorService: ProfessorService,
     private cursoService: CursoService,
     private route: ActivatedRoute,
@@ -97,6 +100,8 @@ export class TurmaDetailsComponent implements OnInit {
   lstCurso: Curso[] = [];
   lstCursoVazio: Curso[] = [];
 
+  currentIndexAlunoTurma = -1;
+
   importProfessores() {
     this.professorLoading = true;
     const nome = this.professorNome.value.replace(/ /g, '+');
@@ -125,6 +130,18 @@ export class TurmaDetailsComponent implements OnInit {
     this.currentTurma.curso = curso;
     this.nomeCurso = curso.nome;
     this.lstCurso = this.lstCursoVazio;
+  }
+
+  removerAluno(id?: number): void {
+    this.turmaAlunoService.delete(id)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.getTurma(this.route.snapshot.params.id);
+        },
+        error => {
+          console.log(error);
+        });
   }
 
 }

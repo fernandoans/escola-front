@@ -22,6 +22,8 @@ import { AddAlunoComponent } from './components/aluno/add-aluno/add-aluno.compon
 import { AlunoDetailsComponent } from './components/aluno/aluno-details/aluno-details.component';
 import { AlunoListComponent } from './components/aluno/aluno-list/aluno-list.component';
 
+import { AddTurmaAlunoComponent } from './components/turmaaluno/add-turmaaluno/add-turmaaluno.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +38,8 @@ import { AlunoListComponent } from './components/aluno/aluno-list/aluno-list.com
     CursoListComponent,
     AddTurmaComponent,
     TurmaDetailsComponent,
-    TurmaListComponent
+    TurmaListComponent,
+    AddTurmaAlunoComponent
   ],
   imports: [
     BrowserModule,

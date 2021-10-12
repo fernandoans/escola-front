@@ -17,6 +17,7 @@ export class AddAlunoComponent implements OnInit {
     email: ''
   };
   submitted = false;
+  message = '';
 
   constructor(private alunoService: AlunoService) { }
 
@@ -38,6 +39,7 @@ export class AddAlunoComponent implements OnInit {
         response => {
           console.log(response);
           this.submitted = true;
+          this.message = response.message ? response.message : 'Aluno foi submetido com sucesso!';
         },
         error => {
           console.log(error);

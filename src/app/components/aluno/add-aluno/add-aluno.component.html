@@ -54,7 +54,7 @@
         <button (click)="saveAluno()" class="btn btn-success">Inserir</button>
       </div>
       <div *ngIf="submitted">
-        <h4>Aluno foi enviado com sucesso!</h4>
+        <h4> {{ message }} </h4>
         <button class="btn btn-success" (click)="newAluno()">Adicionar</button>
       </div>
     </div>

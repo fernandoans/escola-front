@@ -36,7 +36,7 @@ export class CursoService {
     return this.http.delete(baseUrl);
   }
 
-  findByNome(title: any): Observable<Curso[]> {
-    return this.http.get<Curso[]>(`${baseUrl}nome/${title}`);
+  findByNome(nome: any): Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${baseUrl}nome/${nome}`);
   }
 }

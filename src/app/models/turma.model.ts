@@ -1,5 +1,6 @@
 import { Curso } from "./curso.model";
 import { Professor } from "./professor.model";
+import { TurmaAluno } from "./turmaaluno.model";
 
 export class Turma {
   id?: number;
@@ -10,4 +11,5 @@ export class Turma {
   datatermino?: string;
   professor?: Professor;
   curso?: Curso;
+  alunos?: TurmaAluno[];
 }

@@ -12,6 +12,7 @@ import { AddCursoComponent } from './components/curso/add-curso/add-curso.compon
 import { TurmaListComponent } from './components/turma/turma-list/turma-list.component';
 import { TurmaDetailsComponent } from './components/turma/turma-details/turma-details.component';
 import { AddTurmaComponent } from './components/turma/add-turma/add-turma.component';
+import { AddTurmaAlunoComponent } from './components/turmaaluno/add-turmaaluno/add-turmaaluno.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'turma', pathMatch: 'full' },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'turma', component: TurmaListComponent },
   { path: 'turma/:id', component: TurmaDetailsComponent },
   { path: 'addturma', component: AddTurmaComponent },
+  { path: 'turmaaluno/:id', component: AddTurmaAlunoComponent },
 ];
 
 @NgModule({

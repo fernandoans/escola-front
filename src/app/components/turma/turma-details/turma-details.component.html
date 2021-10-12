@@ -9,22 +9,20 @@
             <input type="text" class="form-control" id="nome" required [(ngModel)]="currentTurma.nome" name="nome" />
           </div>
           <div class="form-row">
-            <div class="col col-md-6">
+            <div class="col col-md-3">
               <div class="form-group">
                 <label for="cargahoraria">Carga Horária</label>
                 <input class="form-control" id="cargahoraria" required [(ngModel)]="currentTurma.cargahoraria"
                   name="cargahoraria" />
               </div>
             </div>
-            <div class="col col-md-6">
+            <div class="col col-md-3">
               <div class="form-group">
                 <label for="cargahoraria">Nº Sala</label>
                 <input class="form-control" id="numsala" required [(ngModel)]="currentTurma.numsala" name="numsala" />
               </div>
             </div>
-          </div>
-          <div class="form-row">
-            <div class="col col-md-6">
+            <div class="col col-md-3">
               <div class="form-group">
                 <label class="control-label" for="datainicio">Data Início</label>
                 <div class='input-group date' id='datainicioturma'>
@@ -36,7 +34,7 @@
                 </div>
               </div>
             </div>
-            <div class="col col-md-4">
+            <div class="col col-md-3">
               <div class="form-group">
                 <label class="control-label" for="datatermino">Data Término</label>
                 <div class='input-group date' id='dataterminoturma'>
@@ -62,7 +60,8 @@
                 <label class="control-label" for="nomeProfessor">Nome do Professor</label>
                 <div class='input-group date' id='pesquisarpornome'>
                   <input type="text" class="form-control" placeholder="Pesquisar pelo nome do Professor"
-                    id="nomeProfessor" [formControl]="professorNome" value="{{nomeProf}}">
+                    id="nomeProfessor" [formControl]="professorNome" value="{{nomeProf}}"
+                    [(ngModel)]="currentTurma?.professor?.nome!">
                   <span class="input-group-addon" (click)="importProfessores()">
                     <span class="glyphicon glyphicon-hand-right"></span>
                   </span>
@@ -93,7 +92,7 @@
                 <label class="control-label" for="nomeCurso">Nome do Curso</label>
                 <div class='input-group date' id='pesquisarpornome'>
                   <input type="text" class="form-control" placeholder="Pesquisar pelo nome do Curso" id="nomeCurso"
-                    [formControl]="cursoNome" value="{{nomeCurso}}">
+                    [formControl]="cursoNome" value="{{nomeCurso}}" [(ngModel)]="currentTurma?.curso?.nome!">
                   <span class="input-group-addon" (click)="importCursos()">
                     <span class="glyphicon glyphicon-hand-right"></span>
                   </span>
@@ -111,6 +110,20 @@
               </div>
             </div>
           </div>
+          <h4>{{ currentTurma?.alunos?.length }} alunos nesta turma</h4>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let turmaAluno of currentTurma?.alunos; let i = index"
+              [class.active]="i == currentIndexAlunoTurma">
+              <button class="m-3 btn btn-sm btn-danger" (click)="removerAluno(turmaAluno?.id)">
+                Remover Aluno
+              </button>
+              {{ turmaAluno?.aluno?.nome }} - {{ turmaAluno?.aluno?.email }}
+            </li>
+          </ul>
+
+          <div *ngIf="currentTurma?.alunos?.length == 0">
+            Não há alunos cadastrados
+          </div>
         </div>
         <button class="m-3 btn btn-sm btn-danger" (click)="deleteTurma()">
           Excluir
@@ -118,6 +131,9 @@
         <button type="submit" class="m-3 btn btn-sm btn-warning" (click)="updateTurma()">
           Alterar
         </button>
+        <a class="m-3 btn btn-sm btn-success" routerLink="/turmaaluno/{{ currentTurma.id }}">
+          Incluir Alunos
+        </a>
         <p>{{ message }}</p>
       </div>
       <div *ngIf="!currentTurma.id">

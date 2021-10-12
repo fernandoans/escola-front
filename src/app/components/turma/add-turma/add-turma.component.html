@@ -9,22 +9,20 @@
             <input type="text" class="form-control" id="nome" required [(ngModel)]="turma.nome" name="nome" />
           </div>
           <div class="form-row">
-            <div class="col col-md-6">
+            <div class="col col-md-3">
               <div class="form-group">
                 <label for="cargahoraria">Carga Horária</label>
                 <input class="form-control" id="cargahoraria" required [(ngModel)]="turma.cargahoraria"
                   name="cargahoraria" />
               </div>
             </div>
-            <div class="col col-md-6">
+            <div class="col col-md-3">
               <div class="form-group">
                 <label for="cargahoraria">Nº Sala</label>
                 <input class="form-control" id="numsala" required [(ngModel)]="turma.numsala" name="numsala" />
               </div>
             </div>
-          </div>
-          <div class="form-row">
-            <div class="col col-md-6">
+            <div class="col col-md-3">
               <div class="form-group">
                 <label class="control-label" for="datainicio">Data Início</label>
                 <div class='input-group date' id='datainicioturma'>
@@ -36,7 +34,7 @@
                 </div>
               </div>
             </div>
-            <div class="col col-md-6">
+            <div class="col col-md-3">
               <div class="form-group">
                 <label class="control-label" for="datatermino">Data Término</label>
                 <div class='input-group date' id='dataterminoturma'>
@@ -73,7 +71,7 @@
                     <th>Disciplina</th>
                   </tr>
                   <tr *ngFor="let professor of lstProfessor" (click)="importSelProfessor(professor)"
-                    class="import-movie">
+                    class="import-item">
                     <td class="my-text-center">{{professor.nome}}</td>
                     <td class="my-text-center">{{professor.disciplina}}</td>
                   </tr>

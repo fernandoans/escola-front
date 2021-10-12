@@ -1,0 +1,50 @@
+<div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Inclusão de Alunos na Turma</div>
+    <div class="panel-body">
+      <div *ngIf="!submitted">
+        <div>
+          <div class="form-group col-md-12">
+            <label><strong>Nome:</strong></label>
+            {{ turmaaluno?.turma?.nome }}
+          </div>
+          <div class="form-row">
+            <div class="col col-md-3">
+              <div class="form-group">
+                <label class="control-label" for="matriculaAluno">Matrícula do Aluno</label>
+                <input type="text" class="form-control" id="matriculaAluno" [(ngModel)]="turmaaluno?.aluno?.matricula!">
+              </div>
+            </div>
+            <div class="col col-md-9">
+              <div class="form-group">
+                <label class="control-label" for="nomeAluno">Nome do Aluno</label>
+                <div class='input-group date' id='pesquisarpornome'>
+                  <input type="text" class="form-control" placeholder="Pesquisar pelo nome do Aluno" id="nomeAluno"
+                    [formControl]="alunoNome" value="{{nomeAlun}}">
+                  <span class="input-group-addon" (click)="importAlunos()">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                  </span>
+                </div>
+                <table class="table" *ngIf="lstAluno.length > 0">
+                  <tr>
+                    <th>Nome</th>
+                    <th>Disciplina</th>
+                  </tr>
+                  <tr *ngFor="let aluno of lstAluno" (click)="importSelAluno(aluno)" class="import-item">
+                    <td class="my-text-center">{{aluno.nome}}</td>
+                    <td class="my-text-center">{{aluno.email}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <button (click)="saveTurmaAluno()" class="btn btn-success">Inserir</button>
+        </div>
+      </div>
+      <div *ngIf="submitted">
+        <h4> {{ message }} </h4>
+        <button class="btn btn-success" (click)="newTurmaAluno()">Adicionar outro Aluno</button>
+      </div>
+    </div>
+  </div>
+</div>
